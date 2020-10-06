@@ -1,0 +1,33 @@
+<apex:page standardController="Contact" extensions="ContactListDetail" >
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageblockSection title="My Contacts" >
+              <apex:pageblockTable value="{!contList}" var="cnt" rows="10">
+                  <apex:column headerValue="Name">
+                    <apex:commandLink value="{!cnt.Name}" action="{!fetchDetail}"  >
+                        <apex:param assignTo="{!contId}" name="{!cnt.Id}" value="{!cnt.Id}"/>
+                    </apex:commandLink>                      
+                  </apex:column>
+                  <apex:column headerValue="Account Name" value="{! cnt.Account.Name}"/>                  
+              </apex:pageblockTable>
+          </apex:pageblockSection>
+          <apex:pageblockSection title="Contact Details" rendered="{!NOT(ISNULL(cont))}" id="detailSection">
+              <apex:pageBlockSectionItem >
+                  First Name: <apex:outputField value="{!cont.FirstName}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  Last Name: <apex:outputField value="{!cont.LastName}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  Related Account: <apex:outputField value="{!cont.Account.Name}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  Phone: <apex:outputField value="{!cont.Phone}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  Email: <apex:outputField value="{!cont.Email}"/>
+              </apex:pageBlockSectionItem>
+          </apex:pageblockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>
