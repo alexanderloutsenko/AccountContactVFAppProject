@@ -1,19 +1,16 @@
-<apex:page standardController="Account" recordSetVar="accsList" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False">
-<head>
-  <title>{! Account.Name }</title>
+<apex:page standardController="Account" extensions="SelectAccountController" recordSetVar="accsList" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False">
   <apex:slds /> 
-</head> 
 <body class="slds-scope">
     <!-- MASTHEAD -->
 <div class="slds-panel__section">
-    <h1 class="slds-page-header__title slds-truncate" title="My Accounts">
-        View, Edit and Create New Accounts
+    <h1 class="slds-page-header__title slds-truncate" title="View Accounts">
+        View Accounts
     </h1>
     <!-- / MASTHEAD -->
     <!-- View List of accounts -->
     <p class="slds-text-heading--label slds-m-bottom--small">
         List of Accounts
-        <span class="slds-icon_container slds-icon-standard-account" title="Account Standard Icon">
+        <span class="slds-icon_container slds-icon-standard-account" title="Account">
           <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#account')}" />
           </svg>
@@ -22,13 +19,43 @@
     <table class="slds-table slds-table--bordered slds--table--striped slds-table--cell-buffer" >
         <thead>
             <tr class="slds-text-heading--label">
+ 				<!--<th scope="col"><span class="slds-truncate">RB</span></th>-->
+                <th scope="col"><span class="slds-truncate"></span></th>                
                 <th scope="col"><span class="slds-truncate">Account</span></th>
                 <th scope="col"><span class="slds-truncate">Revenue</span></th>
             </tr>
         </thead>
         <tbody>
+            <!--<apex:selectRadio id="radioGroup" value="{!accsList}">-->
+          <div class="slds-radio_button-group">
+           <span class="slds-button slds-radio_button">
             <apex:repeat value="{!accsList}" var="acc" rows="10">
                 <tr>
+                    <!--<td>
+                        <span class="slds-radio">
+        					<input type="radio" name="{!acc}" id="{!acc}" value="{!acc}"/>
+      					      <label class="slds-radio__label" for="{!acc}">
+                                  <span class="slds-radio_faux"></span>
+                                  <span class="slds-form-element__label">Radio Label One</span>
+                            </label>
+                        </span>
+                        
+                            <!--<apex:selectOption itemValue="{!acc}"/>
+                  
+                    </td>-->
+                    <td>
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-checkbox">
+                                    <input type="checkbox" name="options" id="{!acc.Id}" value="{!acc.Id}" checked="" />
+                                    <label class="slds-checkbox__label" for="{!acc.Id}">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>             
+                    </td>                    
                     <td>
                         <apex:outputLink value="/{!acc.ID}" >
                             <apex:outputText value="{!acc.Name}"/>
@@ -40,46 +67,31 @@
                     </td>
                 </tr>
             </apex:repeat>
+           </span>
+          </div>
+            <!--</apex:selectRadio>-->                 
         </tbody>
     </table>
 </div>    
-    <!-- View List of accounts -->
+    <!-- End of View List of accounts -->
     <div class="slds-panel__section">
       <div class="slds-col slds-no-flex slds-grid slds-align-top">
-        <button class="slds-button slds-button--neutral" >New Account</button>
-        <button class="slds-button slds-button_neutral"> Add Contact </button>
+        <button class="slds-button slds-button--neutral" id="redirectToNewAccountPage" 
+                onclick="window.location.href='./NewAccountVFPage'">New Account</button>
+          <button class="slds-button slds-button_neutral" id="redirectToContactPage"
+                  onclick="passSelectedVFFunction('{!accsList}');">View Contact List</button>
+        <apex:form >  
+          <apex:actionFunction name="passSelectedVFFunction" action="{!setAccIds}" >
+              <apex:param name="selectedAccounts" value="{!accsList}" />
+          </apex:actionFunction>  
+        </apex:form>  
+        <!--<button class="slds-button slds-button_neutral" id="redirectToContactPage">View Contact List</button>
+          <script type="text/javascript">
+    				document.getElementById("redirectToContactPage").onclick = function () {
+                        location.href = "./ContactVFPage";
+                    };
+          </script>-->
        </div>
     </div>
-    <!-- ACCOUNT DETAIL CARD -->
-    <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
-      <div class="slds-form--stacked slds-grow slds-scrollable--y">
- 
-        <div class="slds-panel__section">
-          <h3 class="slds-text-heading--small slds-m-bottom--medium">Account Detail</h3>
-          <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
-            <span class="slds-form-element__label">Name</span>
-            <div class="slds-form-element__control">
-              <span class="slds-form-element__static">{! Account.Name }</span>
-            </div>
-          </div>
-          <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
-            <span class="slds-form-element__label">Phone</span>
-            <div class="slds-form-element__control">
-              <span class="slds-form-element__static">{! Account.Phone }</span>
-            </div>
-          </div>
-        </div>
-        <div class="slds-panel__section slds-has-divider--bottom">
-          <div class="slds-media">
-            <div class="slds-media__body">
-
-                <button class="slds-button slds-button--neutral slds-grow">Save</button>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- / ACCOUNT DETAIL CARD -->
 </body>
 </apex:page>

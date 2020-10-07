@@ -11,6 +11,11 @@
                   <apex:column headerValue="Account Name" value="{! cnt.Account.Name}"/>                  
               </apex:pageblockTable>
           </apex:pageblockSection>
+          <apex:pageBlockButtons >
+              
+              <apex:outputLink value="{!$Page.AccountVFPage}">View Accounts</apex:outputLink>
+             
+          </apex:pageBlockButtons>
           <apex:pageblockSection title="Contact Details" rendered="{!NOT(ISNULL(cont))}" id="detailSection">
               <apex:pageBlockSectionItem >
                   First Name: <apex:outputField value="{!cont.FirstName}"/>

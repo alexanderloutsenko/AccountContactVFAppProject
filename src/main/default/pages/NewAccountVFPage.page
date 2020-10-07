@@ -1,0 +1,75 @@
+<apex:page standardController="Account" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False">
+	  <apex:slds /> 
+    <body class="slds-scope">
+    <div class="slds-panel__section">
+        <!-- HEAD -->
+        <h1 class="slds-page-header__title slds-truncate" title="New Account">
+            New Account
+            <span class="slds-icon_container slds-icon-standard-account" title="Account">
+                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#account')}" />
+                </svg>
+            </span>
+        </h1> 
+        <!-- / HEAD -->
+    <!-- NEW ACCOUNT INPUT DATA CARD -->
+    <apex:form >        
+    <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+      <div class="slds-form--stacked slds-grow slds-scrollable--y">
+ 
+        <div class="slds-panel__section">
+          <h3 class="slds-text-heading--small slds-m-bottom--medium">Account Detail</h3>
+          <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+              <div class="slds-form-element slds-has-error">
+                  <label class="slds-form-element__label" for="AccountName">
+                      <abbr class="slds-required" title="required">* </abbr>Account Name</label>
+                  <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                      <svg class="slds-input__icon" aria-hidden="true">
+                         <!-- <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use> -->
+                      	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#error')}" />
+                      </svg>
+                      <input type="text" id="AccountName" required="" placeholder="Enter account name…" aria-describedby="error-message-unique-id" class="slds-input" aria-invalid="true" />
+                  </div>
+                  <div class="slds-form-element__help" id="error-message-unique-id">This field is required</div>
+              </div>
+          </div>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="AccountNumber">
+                    Account Number</label>
+                <div class="slds-form-element__control">
+                    <input type="text" id="AccountNumber" placeholder="Enter account number…" aria-describedby="error-message-unique-id" class="slds-input" aria-invalid="true" />
+                </div>
+            </div>  
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="AnnualRevenue">
+                    Annual Revenue, USD</label>
+                <div class="slds-form-element__control">
+                    <!--<input type="number" id="AnnualRevenue" placeholder="Enter annual revenue in USD…" class="slds-input" />
+               --> 
+                    <apex:inputField value="{!account.AnnualRevenue}" />
+
+                </div>
+            </div>            
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="Phone" id="inline-text-label">Phone</label>
+                <div class="slds-form-element__control">
+                    <input type="tel" id="Phone" placeholder="Enter a phone number …" aria-describedby="error-message-unique-id" class="slds-input" aria-invalid="true" />
+                </div>
+                <div class="slds-form-element__help" id="error-message-unique-id">ex: (415)111-2222</div>
+            </div>
+        </div>
+        <!-- / NEW ACCOUNT INPUT DATA CARD -->
+        <!-- ACTION BUTTONS -->
+        <div class="slds-panel__section slds-has-divider--bottom">
+            <input type="submit" class="slds-button slds-button--neutral slds-grow" value="Save" />
+            <!--<apex:commandButton action="{!save}"  value="Save"/>-->
+        </div>
+        <!-- / ACTION BUTTONS -->
+      </div>
+    </div> 
+    </apex:form>
+
+
+        </div>
+    </body>
+</apex:page>
