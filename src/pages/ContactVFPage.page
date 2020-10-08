@@ -1,4 +1,4 @@
-<apex:page standardController="Contact" extensions="ContactListDetail" >
+<apex:page controller="ContactListDetail" >
   <apex:form >
       <apex:pageBlock >
           <apex:pageblockSection title="My Contacts" >

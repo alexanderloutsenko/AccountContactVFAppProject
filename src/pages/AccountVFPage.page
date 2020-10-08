@@ -1,5 +1,5 @@
-<apex:page standardController="Account" extensions="SelectAccountController" recordSetVar="accsList" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False">
-  <apex:slds /> 
+<apex:page controller="AccountVFPageController" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False">
+  <apex:slds />  <!--extensions="SelectAccountController"-->
 <body class="slds-scope">
     <!-- MASTHEAD -->
 <div class="slds-panel__section">
@@ -16,82 +16,77 @@
           </svg>
         </span>
     </p>
+    <apex:form >
     <table class="slds-table slds-table--bordered slds--table--striped slds-table--cell-buffer" >
         <thead>
             <tr class="slds-text-heading--label">
- 				<!--<th scope="col"><span class="slds-truncate">RB</span></th>-->
-                <th scope="col"><span class="slds-truncate"></span></th>                
+                <th scope="col"><span class="slds-truncate">ChBx</span></th>                
                 <th scope="col"><span class="slds-truncate">Account</span></th>
                 <th scope="col"><span class="slds-truncate">Revenue</span></th>
             </tr>
         </thead>
         <tbody>
-            <!--<apex:selectRadio id="radioGroup" value="{!accsList}">-->
-          <div class="slds-radio_button-group">
            <span class="slds-button slds-radio_button">
-            <apex:repeat value="{!accsList}" var="acc" rows="10">
+            <apex:repeat value="{!wrapAccList}" var="acc" rows="10">
                 <tr>
-                    <!--<td>
-                        <span class="slds-radio">
-        					<input type="radio" name="{!acc}" id="{!acc}" value="{!acc}"/>
-      					      <label class="slds-radio__label" for="{!acc}">
-                                  <span class="slds-radio_faux"></span>
-                                  <span class="slds-form-element__label">Radio Label One</span>
-                            </label>
-                        </span>
-                        
-                            <!--<apex:selectOption itemValue="{!acc}"/>
-                  
-                    </td>-->
-                    <td>
-                        <div class="slds-form-element">
-                            <div class="slds-form-element__control">
-                                <div class="slds-checkbox">
-                                    <input type="checkbox" name="options" id="{!acc.Id}" value="{!acc.Id}" checked="" />
-                                    <label class="slds-checkbox__label" for="{!acc.Id}">
+                   <td><!-- CHECKBOX -->
+                       <div class="slds-form-element">
+                           <div class="slds-form-element__control">
+                               <div class="slds-checkbox">
+                                    <input type="checkbox" name="options" id="{!acc.waccId}" value="{!acc.waccId}" />
+                                    <label class="slds-checkbox__label" for="{!acc.waccId}">
                                         <span class="slds-checkbox_faux"></span>
                                         <span class="slds-form-element__label"></span>
                                     </label>
-                                </div>
-                            </div>
-                        </div>             
-                    </td>                    
+                               		<apex:param name="accIdParam" value="{!acc.waccId}" assignTo="{!accountIdChosen}"/>
+                               </div>
+                           </div>
+                       </div> 
+
+                    </td><!-- / CHECKBOX -->                    
                     <td>
-                        <apex:outputLink value="/{!acc.ID}" >
-                            <apex:outputText value="{!acc.Name}"/>
+                        <apex:outputLink value="/{!acc.waccId}" >
+                            <apex:outputText value="{!acc.waccName}"/>
                         </apex:outputLink>
                     </td>
                     <td><apex:outputText value="{0, number, currency}">
-                        <apex:param value="{!acc.AnnualRevenue}" />
+                        <apex:param value="{!acc.waccAnnualRevenue}" />
                         </apex:outputText>
                     </td>
                 </tr>
             </apex:repeat>
-           </span>
-          </div>
-            <!--</apex:selectRadio>-->                 
+           </span>         
         </tbody>
     </table>
+        <apex:actionSupport event="onchange" action="{!setSelectedAccId}" id="passCheckboxState" />
+        </apex:form>
 </div>    
-    <!-- End of View List of accounts -->
+    <!-- / View List of accounts -->
     <div class="slds-panel__section">
       <div class="slds-col slds-no-flex slds-grid slds-align-top">
         <button class="slds-button slds-button--neutral" id="redirectToNewAccountPage" 
                 onclick="window.location.href='./NewAccountVFPage'">New Account</button>
           <button class="slds-button slds-button_neutral" id="redirectToContactPage"
-                  onclick="passSelectedVFFunction('{!accsList}');">View Contact List</button>
+                  onclick="passSelectedVFFunction('{!wrapAccList}');">View Contact List</button>
         <apex:form >  
-          <apex:actionFunction name="passSelectedVFFunction" action="{!setAccIds}" >
-              <apex:param name="selectedAccounts" value="{!accsList}" />
+          <apex:actionFunction name="passSelectedVFFunction" action="{!setSelectedAccId}" >
+              <apex:param name="selectedAccounts" value="003006009002005008" assignTo="{!tmpAccId}"/>
           </apex:actionFunction>  
         </apex:form>  
         <!--<button class="slds-button slds-button_neutral" id="redirectToContactPage">View Contact List</button>
-          <script type="text/javascript">
+          script type="text/javascript">
     				document.getElementById("redirectToContactPage").onclick = function () {
                         location.href = "./ContactVFPage";
                     };
-          </script>-->
+          </script-->
        </div>
     </div>
 </body>
 </apex:page>
+<!-- 
+                       <apex:form >  
+                           <apex:actionFunction name="changeIsSelected" action="{!accountIdChosen}" >
+                               <apex:param name="accIdParam" value="{!acc.waccId}" assignTo="{!accountIdChosen}"/>
+                           </apex:actionFunction> 
+                       </apex:form>  
+-->

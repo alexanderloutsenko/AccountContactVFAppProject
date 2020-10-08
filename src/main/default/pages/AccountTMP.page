@@ -1,0 +1,23 @@
+<apex:page controller="AccountTMPController">
+      <apex:form >
+        <apex:pageBlock >
+          <apex:pageblockSection title="My Accounts" >
+              <apex:pageblockTable value="{!wrapAccList}" var="wa" rows="10">
+                  <apex:column >
+                      <!-- Checkbox with actionSupport -->
+                  	<apex:inputCheckbox value="{!wa.isSelected}">
+         				<!--<apex:actionSupport event="onchange" action="{!addSelectedAccId}" id="passCheckboxState" >
+                            <apex:param name="selectedIdParam'{!wa.waccId}'" value="{!wa.waccId}" assignTo="{!accountIdChosen}" />
+                        </apex:actionSupport>  -->             		
+                  	</apex:inputCheckbox>
+                      <!-- / Checkbox with actionSupport -->
+                   </apex:column>
+                   <apex:column headerValue="Name" value="{!wa.waccName}" />
+               </apex:pageblockTable>
+          </apex:pageblockSection>
+         </apex:pageBlock>
+          <apex:commandButton action="{!redirectToContactPage}" value="Go to Accounts">
+             <!-- <apex:param name="idsForURL" value="009098098098098098" /> -->
+          </apex:commandButton>
+      </apex:form>
+</apex:page>
