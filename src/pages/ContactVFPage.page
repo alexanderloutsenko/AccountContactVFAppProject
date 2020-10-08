@@ -13,7 +13,7 @@
           </apex:pageblockSection>
           <apex:pageBlockButtons >
               
-              <apex:outputLink value="{!$Page.AccountVFPage}">View Accounts</apex:outputLink>
+              <apex:outputLink value="{!$Page.AccountTMP}">View Accounts</apex:outputLink>
              
           </apex:pageBlockButtons>
           <apex:pageblockSection title="Contact Details" rendered="{!NOT(ISNULL(cont))}" id="detailSection">
